@@ -69,7 +69,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     ```bash
     npm run commands
     ```
-   This will register slash commands to your development server or globally to all servers, depending on the `Production` setting in your .env file.
+    This will register slash commands to your development server or globally to all servers, depending on the `Production` setting in your .env file.
 
 
   
