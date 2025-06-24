@@ -6,8 +6,9 @@ path = require("path");
 const TOKEN = process.env.BotToken;
 const CLIENT_ID = process.env.AppID;
 const GUILD_ID = process.env.ServerID;
+const Production = process.env.Production;
 
-if (!TOKEN || !CLIENT_ID || !GUILD_ID) {
+if (!TOKEN || !CLIENT_ID || !GUILD_ID || !Production) {
     console.error("❌ Missing environment variables. Check your .env file.");
     process.exit(1);
 }
