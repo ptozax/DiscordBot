@@ -1,5 +1,5 @@
 const { items } = require('../utils/items');
-const {battle} = require('./pve');
+const { battle } = require('./pve');
 const itemKeys = Object.keys(items);
 
 const getRandomItemKey = () => {
@@ -101,7 +101,7 @@ module.exports = async function (player, message, writeData) {
     for (const event of exploreEvents) {
         sum += event.chance;
         if (roll < sum) {
-            await event.action(player, message,writeData);
+            await event.action(player, message, writeData);
             break;
         }
     }
@@ -115,6 +115,14 @@ module.exports = async function (player, message, writeData) {
         player.hp -= 10;
         await message.channel.send("⚠️ คุณหิวหรือกระหายน้ำมากเกินไป! HP ลดลง!");
     }
+
+if (player.hp <= 0) {
+    player.hp = 0;
+    player.isDead = true;
+    await message.channel.send("☠️ คุณหมดแรงและเสียชีวิต...");
+    writeData();
+    return;
+}
 
     writeData();
 };

@@ -23,12 +23,7 @@ let players = JSON.parse(fs.readFileSync(DATA_FILE));
  */
 function LoadPlayerData(userId, message) {
   if (!players[userId]) {
-    players[userId] = {
-      hp: 100,
-      hunger: 50,
-      water: 50,
-      inventory: [],
-    };
+    players[userId] = createNewPlayer(message.author.username);
   }
 
   const player = players[userId];
@@ -36,6 +31,32 @@ function LoadPlayerData(userId, message) {
 
   return { player, content };
 }
+
+
+
+
+function createNewPlayer(name) {
+    return {
+        name,
+        level: 1,
+        xp: 0,
+        atk: 5,
+        def: 2,
+        hp: 100,
+        hunger: 100,
+        water: 100,
+        inventory: [],
+        isDead: false
+    };
+}
+
+
+
+
+
+
+
+
 
 /**
  * เขียนข้อมูล players กลับลงไฟล์

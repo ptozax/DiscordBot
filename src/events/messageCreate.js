@@ -10,6 +10,7 @@ const handleCraft = require('../messages/craft');
 const handleRecipes = require('../messages/recipes');
 const handleInventory = require('../messages/inventory');
 const handleStatus = require('../messages/status');
+const handleRevive = require('../messages/revive');
 
 
 
@@ -27,12 +28,25 @@ module.exports = {
         const { player } = LoadPlayerData(message.author.id, message);
         const content = message.content.trim();
 
-        if (content === '!explore') return await handleExplore(player, message, writeData);
-        if (content === '!eat' || content.startsWith('!eat ')) return await handleEat(player, message, writeData, items, resolveItemKey);
-        if (content === '!craft' || content.startsWith('!craft ')) return await handleCraft(player, message, writeData, items, recipes, resolveItemKey, hasEnoughItems);
-        if (content === '!recipes') return await handleRecipes(message, recipes, items);
-        if (content === '!inventory') return await handleInventory(player, message, items);
+
         if (content === '!status') return await handleStatus(player, message);
+
+
+        
+
+        if (player.isDead) {
+            if (content === '!revive') return await handleRevive(player, message, writeData);
+            return message.reply("☠️ คุณตายแล้ว! ใช้ `!revive` เพื่อกลับมามีชีวิต");
+        } else {
+
+            if (content === '!explore') return await handleExplore(player, message, writeData);
+            if (content === '!eat' || content.startsWith('!eat ')) return await handleEat(player, message, writeData, items, resolveItemKey);
+            if (content === '!craft' || content.startsWith('!craft ')) return await handleCraft(player, message, writeData, items, recipes, resolveItemKey, hasEnoughItems);
+            if (content === '!recipes') return await handleRecipes(message, recipes, items);
+            if (content === '!inventory') return await handleInventory(player, message, items);
+
+
+        }
 
 
     },
